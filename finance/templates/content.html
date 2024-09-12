@@ -1,0 +1,42 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/content.css' %}">
+
+<div class="content_container">
+    
+    <div class="key_values">
+        <div class="item networth">networth</div>
+        <div class="item asstes">assets</div>
+        <div class="item balance">balance</div>
+    </div>
+
+    <div class="graph_container">
+        <div class="sidebar_left">
+            <div class="income">
+                income
+            </div>
+            <div class="split_expenses">
+                split expenses
+            </div>
+        </div>
+
+        <div class="sidebar_right">
+
+            <div class="graphs_sidebar_right">
+                <div class="item">chart</div>
+                <div class="item">chart</div>
+                <div class="item">cahrt</div>
+            </div>
+
+            <div class="split_sidebar_right">
+                <div class="item chart">piechart</div>
+                <div class="item list">list expenses</div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script defer src="{% static 'js/contenttest.js' %}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
