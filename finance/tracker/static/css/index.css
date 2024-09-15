@@ -1,5 +1,12 @@
 :root{
     --border-radius: 5px;
+
+    --dark-grey: rgb(54, 54, 54);
+    --mid-grey: rgb(78, 78, 78);
+    --light-grey: rgb(165,165,165);
+
+    --purple-light:rgb(114, 116, 214);
+    --purple-dark:rgb(88, 95, 164);
 }
 
 *{
@@ -10,7 +17,7 @@
 }
 
 body{
-    background-color: rgb(74,74,74);
+    background-color: var(--light-grey);
     
 }
 .header{
@@ -18,7 +25,7 @@ body{
     width: 100%;
     top: 0;
     left: 0;
-    background-color: rgb(54,54, 54);
+    background-color: var(--dark-grey);
     display: flex;
     flex-direction: row;
     justify-content: space-between;  
@@ -66,7 +73,7 @@ body{
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: rgb(54, 54, 54);
+    background-color: var(--mid-grey);
     justify-content: space-evenly;
     align-items: left;
     border-radius: var(--border-radius);
@@ -74,7 +81,7 @@ body{
 }
 
 .sb_container .item{
-    margin-left: 20px;
+    margin: 15px;
 }
 
 .content{
@@ -86,4 +93,203 @@ body{
     width: calc(100vw - 220px);
     
     
+}
+button{
+    background-color: var(--purple-dark);
+    border: none;
+    color: white;
+    border-radius: var(--border-radius);
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: var(--purple-light);
+}
+
+.years{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.years button{
+    margin: 5px;
+    width: 100%;
+    height: 40px;
+    font-size: 30px;
+}
+
+.months button{
+    margin-bottom: 5px;
+    height: 30px;
+    width: 75px;
+    font-size: 10px;
+    text-transform: capitalize;
+    
+    
+}
+
+
+
+/* From Uiverse.io by namecho */ 
+.me button, .me button::after {
+ padding: 16px 20px;
+ font-size: 18px;
+ background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
+ border: 0;
+ color: #fff;
+ letter-spacing: 3px;
+ line-height: 1;
+ box-shadow: 6px 0px 0px #00e6f6;
+ outline: transparent;
+ position: relative;
+}
+
+.me button::after {
+ --slice-0: inset(50% 50% 50% 50%);
+ --slice-1: inset(80% -6px 0 0);
+ --slice-2: inset(50% -6px 30% 0);
+ --slice-3: inset(10% -6px 85% 0);
+ --slice-4: inset(40% -6px 43% 0);
+ --slice-5: inset(80% -6px 5% 0);
+ content: "HOVER ME";
+ display: block;
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: linear-gradient(45deg, transparent 3%, #00e6f6 3%, #00e6f6 5%, #ff013c 5%);
+ text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
+ clip-path: var(--slice-0);
+}
+
+.me button:hover::after {
+ animation: 1s glitch;
+ animation-timing-function: steps(2, end);
+}
+
+@keyframes glitch {
+ 0% {
+  clip-path: var(--slice-1);
+  transform: translate(-20px, -10px);
+ }
+
+ 10% {
+  clip-path: var(--slice-3);
+  transform: translate(10px, 10px);
+ }
+
+ 20% {
+  clip-path: var(--slice-1);
+  transform: translate(-10px, 10px);
+ }
+
+ 30% {
+  clip-path: var(--slice-3);
+  transform: translate(0px, 5px);
+ }
+
+ 40% {
+  clip-path: var(--slice-2);
+  transform: translate(-5px, 0px);
+ }
+
+ 50% {
+  clip-path: var(--slice-3);
+  transform: translate(5px, 0px);
+ }
+
+ 60% {
+  clip-path: var(--slice-4);
+  transform: translate(5px, 10px);
+ }
+
+ 70% {
+  clip-path: var(--slice-2);
+  transform: translate(-10px, 10px);
+ }
+
+ 80% {
+  clip-path: var(--slice-5);
+  transform: translate(20px, -10px);
+ }
+
+ 90% {
+  clip-path: var(--slice-1);
+  transform: translate(-10px, 0px);
+ }
+
+ 100% {
+  clip-path: var(--slice-1);
+  transform: translate(0);
+ }
+}
+
+
+
+.add_expenses button {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: red;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    background: rgb(133, 92, 245);
+   }
+   
+.add_expenses button, 
+.add_expenses button span {
+transition: 200ms;
+}
+   
+.add_expenses button .text {
+    transform: translateX(35px);
+    color: white;
+    font-weight: bold;
+}
+   
+.add_expenses button .icon {
+    position: absolute;
+    border-left: 1px solid #1bc437;
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px
+}
+   
+.add_expenses button .ionicon {
+    width: 15px;
+    fill: #eee;
+    color: orange;
+}
+   
+.add_expenses button:hover {
+    background: rgb(159, 129, 244);
+}
+   
+.add_expenses button:hover .text {
+    color: transparent;
+}
+   
+.add_expenses button:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+}
+   
+.add_expenses button:focus {
+    outline: none;
+}
+   
+.add_expenses button:active .icon svg {
+    transform: scale(0.8);
 }

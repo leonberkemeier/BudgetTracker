@@ -1,3 +1,5 @@
+
+
 *{
     box-sizing: border-box;
     margin: 0;
@@ -8,7 +10,7 @@
     display: flex;
     height: 100%;
     width: 100%;
-    background-color: rgb(54, 54, 54);
+    background-color: var(--mid-grey);
     
     align-items: center;
     border-radius: var(--border-radius);
@@ -20,7 +22,7 @@
     display: flex;
     width: calc(100% - 40px);
     height: 10vw;
-    background-color: rgb(81, 81, 81);
+    background-color: var(--light-grey);
     border-radius: var(--border-radius);
     justify-content: space-between;
     align-items: center;
@@ -49,16 +51,17 @@
 .sidebar_left .income{
     padding: 20px;
     height: 80px;
-    background-color: rgb(84, 84, 84);
+    background-color: var(--light-grey);
     width: 100%;
     border-radius: var(--border-radius);
 }
 .sidebar_left .split_expenses{
     height: calc(100% - 90px);
     width: 100%;
-    background-color: rgb(85, 84, 85);
+    background-color: var(--light-grey);;
     border-radius: var(--border-radius);
     padding: 20px;
+    
 }
 
 .sidebar_right{
@@ -84,7 +87,7 @@
 .graphs_sidebar_right .item{
     height: calc((100% / 3) - 7px);
     width: 100%;
-    background-color: rgb(81, 81, 81);
+    background-color: var(--light-grey);
     padding: 10px;
     border-radius: var(--border-radius);
     display: flex;
@@ -103,7 +106,7 @@
 }
 
 .split_sidebar_right .item{
-    background-color: rgb(81, 81, 81);
+    background-color: var(--light-grey);
     border-radius: var(--border-radius);
     display: flex;
     justify-content: center;
@@ -116,3 +119,13 @@
 .split_sidebar_right .list{
     height: calc(55% - 10px);    
 }
+
+canvas{
+    height: 400px;
+}
+
+#myChart{
+    height: 600px;
+    width: 400px;
+}
+

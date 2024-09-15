@@ -22,10 +22,49 @@
 
     <div class="sidebar">
         <div class="sb_container">
-            <div class="item time"><h3>time</h3></div>
-            <div class="item year"><h3>year</h3></div>
-            <div class="item month"><h3>month</h3></div>
-            <div class="item expenses"><h3>add expenses</h3></div>
+            <div class="item time">
+                
+                <h2>date</h2>
+                <h3>feb, 2, 2003</h3>
+            </div>
+            <div class="item year">
+                <h3>year</h3>
+                <div class="years">
+                    <button class="2023">2023</button>
+                    <button class="2024">2024</button>
+                </div>
+
+            </div>
+            <div class="item month">
+                <h3>month</h3>
+                <div class="months">
+                    <button class="january">January</button>
+                    <button class="february">february</button>
+                    <button class="march">march</button>
+                    <button class="april">april</button>
+                    <button class="may">may</button>
+                    <button class="june">june</button>
+                    <button class="july">july</button>
+                    <button class="august">august</button>
+                    <button class="september">september</button>
+                    <button class="ocotober">ocotober</button>
+                    <button class="november">november</button>
+                    <button class="december">december</button>
+                
+                </div>
+                </div>
+            <div class="item expenses">
+                <h3>add expenses</h3>
+                <div class="add_expenses">
+                    <button class="noselect">
+                        <span class="text">Add</span>
+                        <span class="icon">
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                        </span>
+                    </button>
+
+                </div>
+            </div>
         </div>
     </div>
 
@@ -33,6 +72,8 @@
        {% include "content.html"%}
     </div>
 
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

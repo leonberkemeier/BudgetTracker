@@ -1,0 +1,27 @@
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    height: 100vh;
+    width: 100vw;
+}
+
+.container{
+   
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container .links,.rechts{
+    margin: 50px;
+    height: 50vh;
+    width: 40vw;
+   
+}
+
