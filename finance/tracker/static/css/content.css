@@ -167,3 +167,34 @@ canvas{
     height: 100%;
     max-width: 700px;
 }
+
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.split_sidebar_right .list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.split_sidebar_right .list .list_header{
+   height: 20%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.split_sidebar_right .list .table-container{
+    height: 80%;
+    overflow:scroll;
+    overflow-x:hidden;
+    width: 100%;
+}
+
+table{
+    width: 90%;
+    margin-left: 5%;
+}
