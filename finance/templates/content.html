@@ -1,7 +1,7 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'css/content.css' %}">
-
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <div class="content_container">
     
     <div class="key_values">
@@ -16,21 +16,31 @@
             <div class="income">
                 income
             </div>
-            <div class="split_expenses" >
-                
+            <div class="split_expenses">
+                <div class="split_expenses_chart" id="split_expenses_chart"></div>
             </div>
         </div>
 
         <div class="sidebar_right">
 
             <div class="graphs_sidebar_right">
-                <div class="item">chart</div>
-                <div class="item">chart</div>
-                <div class="item">cahrt</div>
+                <div class="item line1">
+                    <div class="linechart1" id="linechart1"></div>
+                </div>
+                <div class="item line2">
+                    <div class="linechart2" id="linechart2"></div>
+                </div>
+                <div class="item line3">
+                    <div class="linechart3" id="linechart3"></div>
+                </div>
             </div>
 
             <div class="split_sidebar_right">
-                <div class="item chart">piechart</div>
+                <div class="item chart">
+                    
+                    <div class="piechart_chart" id="piechart_chart"></div>
+                    
+                </div>
                 <div class="item list">list expenses</div>
             </div>
         </div>

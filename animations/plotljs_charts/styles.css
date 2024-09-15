@@ -1,0 +1,8 @@
+body{
+    background-color: grey;
+}
+
+.split_expenses{
+    width: 100%;
+    max-width: 300px;
+}

@@ -84,6 +84,14 @@ body{
     margin: 15px;
 }
 
+.time h2{
+    margin-bottom: 20px;
+}
+
+.time span{
+    color: var(--purple-light);
+    font-size: 20px;
+}
 .content{
     position: relative;
     top: 85px;

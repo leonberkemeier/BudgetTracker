@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracker</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
-<body>
+<body onload="myFunction()">
     <div class="header">
         <div class="nav_logo">
             <h1>tracker</h1>
@@ -25,7 +25,8 @@
             <div class="item time">
                 
                 <h2>date</h2>
-                <h3>feb, 2, 2003</h3>
+                <span id="Date_today"></span>
+               
             </div>
             <div class="item year">
                 <h3>year</h3>
