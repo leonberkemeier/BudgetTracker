@@ -37,14 +37,12 @@ def upload(request):
 
 def updateupload(request, pk):
 
-    
-
     expense = ExpensesItem.objects.get(id=pk)
-
-    form= ExpensesForm(instance=expense)
-
+    form = ExpensesForm(instance=expense)
 
     if request.method == 'POST':
+
+        #print('hey', request.POST)
         form = ExpensesForm(request.POST, instance=expense)
         if form.is_valid():
             form.save()
@@ -55,3 +53,20 @@ def updateupload(request, pk):
         'expense':expense
     }
     return render(request, "upload.html" ,context)
+
+
+def deleteupload(request, pk):
+
+    expense = ExpensesItem.objects.get(id=pk)
+    form = ExpensesForm(instance=expense)
+
+    if request.method == 'POST':
+
+        expense.delete()
+        return redirect('/list')
+ 
+    context={
+        'form':form,
+        'expense':expense
+    }
+    return render(request, "delete.html" ,context)

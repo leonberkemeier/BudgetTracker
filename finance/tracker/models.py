@@ -13,3 +13,5 @@ class ExpensesItem(models.Model):
     purpose = models.CharField(max_length=100, null=True, choices=PURPOSE) 
     date = models.DateField(null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+
+    
