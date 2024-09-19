@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Expenses</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>
+
+            </th>
+            <th>Amounbts</th>
+            <th>Date</th>
+            <th>purpose</th>
+        </tr>
+
+        {% for ex in expenses %}
+
+            <tr>
+                <td>
+                    {{ex.amount}}
+                </td>
+                <td>
+                    {{ex.date}}
+                </td>
+                <td>
+                    {{ex.purpose}}
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+</body>
+</html>

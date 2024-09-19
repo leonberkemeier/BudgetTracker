@@ -89,8 +89,11 @@ body{
 }
 
 .time span{
-    color: var(--purple-light);
+    color: var(--purple-dark);
     font-size: 20px;
+    background-color: var(--light-grey);
+    padding: 5px;
+    border-radius: var(--border-radius);
 }
 .content{
     position: relative;
