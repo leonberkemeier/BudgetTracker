@@ -13,13 +13,13 @@ def home(request):
 def list(request):
 
     expenses = ExpensesItem.objects.all()
-
+    
     context = {
         'expenses' : expenses
     }
     return render(request, 'list.html', context)
 
-def upload(request):
+def addexpense(request):
     
     form = ExpensesForm(request.POST)
 
@@ -32,10 +32,10 @@ def upload(request):
  
     context = {'form' : form }
     
-    return render(request, "upload.html" ,context)
+    return render(request, "expenseadd.html" ,context)
 
 
-def updateupload(request, pk):
+def editexpense(request, pk):
 
     expense = ExpensesItem.objects.get(id=pk)
     form = ExpensesForm(instance=expense)
@@ -52,10 +52,10 @@ def updateupload(request, pk):
         'form':form,
         'expense':expense
     }
-    return render(request, "upload.html" ,context)
+    return render(request, "expensesedit.html" ,context)
 
 
-def deleteupload(request, pk):
+def deleteexpense(request, pk):
 
     expense = ExpensesItem.objects.get(id=pk)
     form = ExpensesForm(instance=expense)
@@ -69,4 +69,4 @@ def deleteupload(request, pk):
         'form':form,
         'expense':expense
     }
-    return render(request, "delete.html" ,context)
+    return render(request, "expensedelete.html" ,context)

@@ -7,8 +7,8 @@ from . import views
 urlpatterns = [
     
     path('', views.home, name="home"),
-    path('upload', views.upload, name='upload'),
-    path('update_upload/<str:pk>/', views.updateupload, name='update_upload'),
-    path('delete_upload/<str:pk>/', views.deleteupload, name='delete_upload'),
+    path('addexpense', views.addexpense, name='addexpense'),
+    path('edit_expense/<str:pk>/', views.editexpense, name='edit_expense'),
+    path('delete_expense/<str:pk>/', views.deleteexpense, name='delete_expense'),
     path('list', views.list, name='list'),
 ]

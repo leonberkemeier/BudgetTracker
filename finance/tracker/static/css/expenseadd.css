@@ -1,0 +1,42 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body{
+    background: rgb(128, 128, 128);
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container{
+    background-color: rgb(178, 178, 178);
+    padding: 20px;
+    border-radius: 10px;
+}
+.errorlist{
+    display: none;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+   
+}
+
+form  input, label,select{
+    margin: 20px;
+    width: none;
+}
+
+form #id_date,input,select{
+    width: 90%;
+}
