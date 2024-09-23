@@ -1,0 +1,48 @@
+to GET ONE ITEM
+
+(env) leon@leon-Laptop:~/Desktop/p/budget/finance$ python3 manage.py shell
+Python 3.12.3 (main, Sep 11 2024, 14:17:37) [GCC 13.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+
+>>> from tracker.models import *
+>>> qs = ExpensesItem.objects.all()
+>>> print(qs)
+<QuerySet [<ExpensesItem: ExpensesItem object (3)>, <ExpensesItem: ExpensesItem object (4)>, <ExpensesItem: ExpensesItem object (5)>, <ExpensesItem: ExpensesItem object (6)>]>
+>>> q1 = qs.get(amount=234)
+>>> print(q1)
+ExpensesItem object (4)
+>>> print(q1.date)
+2024-08-28
+>>> a = str(q1.date)
+>>> print(a)
+2024-08-28
+>>> import datetime
+>>> dateex = datetime.datetime.strptime(a, "%Y-%m-%d")
+>>> print(dateex.year)
+2024
+>>> print(dateex.month)(
+... 
+KeyboardInterrupt
+>>> print(dateex.month)
+8
+>>> print(dateex.day)
+28
+>>> 
+
+
+filter by date:
+
+>>> qs1 = ExpensesItem.objects.filter(date__year='2024')
+>>> print(qs1)
+<QuerySet [<ExpensesItem: ExpensesItem object (3)>, <ExpensesItem: ExpensesItem object (4)>, <ExpensesItem: ExpensesItem object (5)>, <ExpensesItem: ExpensesItem object (6)>]>
+>>> qs2 = qs1.filter(date__month='8')
+>>> print(qs2)
+<QuerySet [<ExpensesItem: ExpensesItem object (4)>, <ExpensesItem: ExpensesItem object (6)>]>
+>>> 
+
+
+Sample.objects.filter(date__year='2011', 
+                      date__month='01')
+
+https://stackoverflow.com/questions/4668619/how-do-i-filter-query-objects-by-date-range-in-django
