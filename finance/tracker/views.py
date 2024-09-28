@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .forms import ExpensesForm
+from .forms import ExpensesForm, PurposeForm
 from django.contrib import messages
 from datetime import date,datetime
 
@@ -22,28 +22,30 @@ def list(request):
     current_year = datetime.now().year
     current_month = datetime.now().month
     expenses = ExpensesItem.objects
-    
-    year = request.GET.get('year', str(current_year))
-    month = request.GET.get('month', str(current_month))
+    purposes = Purpose.objects
+  
+    year = request.GET.get('year', current_year)
+    month = request.GET.get('month', current_month)
 
     if year is not None and year != '':
         expenses = expenses.filter(date__year=year)
     
     if month is not None and month != '':
         expenses = expenses.filter(date__month =month)
+
+    
     
     expenses = expenses.all()
 
-    
-
-    data = serializers.serialize('json', expenses)
     context = {
         'expenses' : expenses,
-        'data':data,
+        'purposes':purposes,
         'month':month,
         'year':year
     }
     return render(request, 'list.html', context)
+
+
 
 def addexpense(request):
     
@@ -61,6 +63,8 @@ def addexpense(request):
     return render(request, "expenseadd.html" ,context)
 
 
+
+
 def editexpense(request, pk):
 
     expense = ExpensesItem.objects.get(id=pk)
@@ -76,7 +80,8 @@ def editexpense(request, pk):
  
     context={
         'form':form,
-        'expense':expense
+        'expense':expense,
+
     }
     return render(request, "expensesedit.html" ,context)
 
@@ -96,3 +101,57 @@ def deleteexpense(request, pk):
         'expense':expense
     }
     return render(request, "expensedelete.html" ,context)
+
+
+
+def addpurpose(request):
+    
+    form = PurposeForm(request.POST)
+
+    if request.method == 'POST':
+        #print('printpost',request.POST)
+        form = PurposeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/list')
+ 
+    context = {'form' : form }
+    
+    return render(request, "purposeadd.html" ,context)
+
+
+def editpurpose(request, pk):
+
+    purpose = Purpose.objects.get(id=pk)
+    form = PurposeForm(instance=purpose)
+
+    if request.method == 'POST':
+
+        #print('hey', request.POST)
+        form = PurposeForm(request.POST, instance=purpose)
+        if form.is_valid():
+            form.save()
+            return redirect('/list')
+ 
+    context={
+        'form':form,
+        'purpose':purpose,
+
+    }
+    return render(request, "purposeedit.html" ,context)
+
+def deletepurpose(request, pk):
+
+    purpose = Purpose.objects.get(id=pk)
+    form = PurposeForm(instance=purpose)
+
+    if request.method == 'POST':
+
+        purpose.delete()
+        return redirect('/list')
+ 
+    context={
+        'form':form,
+        'purpose':purpose
+    }
+    return render(request, "purposedelete.html" ,context)

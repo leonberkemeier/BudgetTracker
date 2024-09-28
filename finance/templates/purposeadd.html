@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>addpurpose</title>
+    <link rel="stylesheet" href="{% static 'css/purpose.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form action="" method="POST">
+                {% csrf_token %}
+        
+                {{ form }}
+        
+                <input type="submit" name="submit" id="">
+            </form>
+            <button><a href="{% url 'list'%}">back</a></button>
+        </div>
+    </div>
+   
+</body>
+</html>
