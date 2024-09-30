@@ -46,3 +46,47 @@ Sample.objects.filter(date__year='2011',
                       date__month='01')
 
 https://stackoverflow.com/questions/4668619/how-do-i-filter-query-objects-by-date-range-in-django
+
+
+
+
+
+>>> from tracker.models import *
+>>> from django.db.models import Sum
+>>> qs = ExpensesItem.objects.filter(purpose="B")
+>>> print(qs)
+<QuerySet [<ExpensesItem: 32.0 B 2024-09-13>, <ExpensesItem: 56.0 B 2024-09-11>, <ExpensesItem: 77.0 B 2024-08-14>]>
+>>> qsf = qs.aggregate(Sum('amount'))
+>>> print(qsf)
+{'amount__sum': 165.0}
+
+32+56+77
+
+
+IDEA:
+
+dct = {'total': Sum('field_1', filter=Q(field_2__isnull=True))}
+MyModel.objects.aggregate(**dct)
+
+both of which return a dictionary such as {'total': 1234}.
+
+Create a Dict with filter for each Purpose.purpose :
+
+
+dict value
+
+>>> pqs = Purpose.objects.values_list('purpose', flat =True)
+>>> print(pqs)
+<QuerySet ['AA', 'BB', 'CC']>
+>>> print(pqs[0])
+AA
+
+
+
+
+
+
+
+
+
+

@@ -15,5 +15,7 @@ urlpatterns = [
     path('delete_purpose/<str:pk>/', views.deletepurpose, name='delete_purpose'),
     path('list', views.list, name='list'),
 
+    path('test', views.test, name='test')
+
     
 ]

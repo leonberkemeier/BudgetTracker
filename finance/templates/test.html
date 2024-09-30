@@ -4,11 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>test</title>
     <link rel="stylesheet" href="{% static 'css/test.css' %}">
+    <script src='https://cdn.plot.ly/plotly-2.35.2.min.js'></script>
+
+    <style>
+        tr, table , th, td{
+            border: 1px solid white;
+        }
+    </style>
 </head>
 <body>
     <h1>test</h1>
+    <h2> pqs</h2>
+    {% for i in pl %}
+        {{i}}
+
+    {% endfor %}
+
+    <br>
+
+    <h2>eql</h2>
+    {% for i in el %} 
+        {{i}}
+    {% endfor %}
+    
+
+    <div id='myDiv'></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Purpose/List
+                </th>
+                <th>
+                    Expense Sum List
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for i in el %}
+            <tr>
+                
+                <td>
+                    {{ i}}
+                </td>
+                
+                
+            </tr>
+            {% endfor %}
+            
+            <tr>
+                {% for j in pl %}
+                <td>
+                    {{j}}
+                </td>
+                
+            </tr>
+            {% endfor %}
+            
+            
+        </tbody>
+    </table>
+
+    <script>
+        
+    const xArray=[{% for i in el %} {{i}}, {% endfor %}];
+    const yArray=[{% for i in pl %} '{{i}}', {% endfor %}];
+
+    </script>
     <script src="{% static 'js/test.js' %}"></script>
+    <script defer src="{% static 'js/test.js' %}"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src='https://cdn.plot.ly/plotly-2.35.2.min.js'></script>
 </body>
 </html>
