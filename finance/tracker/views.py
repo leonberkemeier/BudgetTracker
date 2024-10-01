@@ -38,9 +38,9 @@ def list(request):
     # print(pqs[0])
 
     pqs = purposeList(filter='purpose')
-    print(pqs)
+    # print(pqs)
     eql = expenseList()
-    print(eql)
+    # print(eql)
     expenses = expenses.all()
 
     context = {
@@ -63,15 +63,20 @@ def purposeList(filter):
 def expenseList():
     el = []
     pl = purposeList(filter='purpose')
-    print(pl)
+    # print(pl)
 
     for i in range(len(pl)):
+        
         seqs =ExpensesItem.objects.filter(purpose = pl[i]).aggregate(Sum('amount')).get('amount__sum')
- 
-        print(seqs)
+
+        # New Purpose might have no Expenses under their name: so the Value is Null
+        # Reasigning the Value to zero does not fukc with the JS
+        if seqs == None:
+            seqs = 0
+        # print(seqs)
         el.append(seqs)
         
-    print(el)
+    # print(el)
     return el
 
 def addexpense(request):

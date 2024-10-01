@@ -29,7 +29,7 @@ const data = [{
 }];
 
 const layout = {    
-  title:"Expenses per Day",
+  
   paper_bgcolor: 'rgb(165,165,165)',
   plot_bgcolor: 'rgb(165,165,165)', 
   title: 'Expenses Per Day',
