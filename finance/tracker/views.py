@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 
-from .forms import ExpensesForm, PurposeForm
+from .forms import ExpensesForm, PurposeForm, NetworthForm
 from django.contrib import messages
 from datetime import date,datetime
 
 from .models import *
 
+import calendar
+from calendar import monthrange
 from django.core import serializers
 from django.http import JsonResponse
 import sys
@@ -25,6 +27,7 @@ def list(request):
     expenses = ExpensesItem.objects
     purposes = Purpose.objects
   
+    
     year = request.GET.get('year', current_year)
     month = request.GET.get('month', current_month)
 
@@ -36,21 +39,43 @@ def list(request):
 
     # pqs =Purpose.objects.values_list('purpose' ,flat= True)
     # print(pqs[0])
+    n = Networth.objects.all()
+    nf = netfilter(n)
+
+    d = ExpensesItem.objects.all()
+    df = datefilter(d)
 
     pqs = purposeList(filter='purpose')
     # print(pqs)
     eql = expenseList()
     # print(eql)
     expenses = expenses.all()
+    if year is not None and month is not None:
+        days = calendar.monthrange(int(year),int(month))[1]
 
     context = {
         'pqs' : pqs,
         'expenses' : expenses,
         'purposes':purposes,
         'month':month,
-        'year':year
+        'year':year,
+        'nf':nf,
+        'df':df,
+        'days':days,
     }
     return render(request, 'list.html', context)
+
+def datefilter(d):
+    print(d)
+    df = d.filter(date__month=8)
+    print(df)
+    return df
+
+def netfilter(n):
+    # print(n)
+    nf = n.filter(balance=222)
+    # print(nf)
+    return nf
 
 def purposeList(filter):
     lp=[]
@@ -71,6 +96,7 @@ def expenseList():
 
         # New Purpose might have no Expenses under their name: so the Value is Null
         # Reasigning the Value to zero does not fukc with the JS
+        
         if seqs == None:
             seqs = 0
         # print(seqs)
@@ -194,8 +220,65 @@ def test(request):
     pl = purposeList(filter='purpose') 
     el = expenseList()
     
+    networth = Networth.objects.all()
+    balance = networth[0].balance
+    income = networth[0].incomeM
+    assets = networth[0].assets
+
+
     context={
         'pl':pl,
-        'el':el
+        'el':el,
+        'balance':balance,
+        'income':income,
+        'assets':assets,
+        
+
     }
     return render(request, 'test.html', context)
+
+
+def addnetworth(request):
+    
+    form = NetworthForm(request.POST)
+
+    if request.method == 'POST':
+        #print('printpost',request.POST)
+        form = NetworthForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/list')
+ 
+    context = {'form' : form }
+    
+    return render(request, "netadd.html" ,context)
+
+
+def editnetworth(request, pk):
+
+    networth = Networth.objects.get(id=pk)
+    form = NetworthForm(instance=networth)
+
+    if request.method == 'POST':
+
+        #print('hey', request.POST)
+        form = NetworthForm(request.POST, instance=networth)
+        if form.is_valid():
+            form.save()
+            return redirect('/list')
+ 
+    context={
+        'form':form,
+        'purpose':networth,
+
+    }
+    return render(request, "netedit.html" ,context)
+
+
+def tryall(request):
+
+    context={
+        
+    }
+
+    return render(request, "tryall.html", context)

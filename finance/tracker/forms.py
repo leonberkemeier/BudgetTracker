@@ -1,5 +1,5 @@
 from django import forms
-from .models import ExpensesItem, Purpose
+from .models import ExpensesItem, Purpose, Networth
 
 
 class ExpensesForm(forms.ModelForm):
@@ -22,3 +22,9 @@ class PurposeForm(forms.ModelForm):
     class Meta:
         model = Purpose
         fields = ('__all__')
+
+
+class NetworthForm(forms.ModelForm):
+    class Meta:
+        model = Networth
+        fields =('__all__')

@@ -21,3 +21,11 @@ class Purpose(models.Model):
 
     def __str__(self):
         return self.purpose
+    
+class Networth(models.Model):
+    incomeM = models.FloatField(null=True)
+    balance = models.FloatField(null=True)
+    assets = models.FloatField(null=True)
+
+    def __str__(self):
+        return (str(self.incomeM) + " "+ str(self.balance) +" "+ str(self.assets) )
