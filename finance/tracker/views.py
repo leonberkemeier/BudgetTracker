@@ -50,8 +50,23 @@ def list(request):
     eql = expenseList()
     # print(eql)
     expenses = expenses.all()
+
     if year is not None and month is not None:
         days = calendar.monthrange(int(year),int(month))[1]
+    networth = Networth.objects.first()
+    income = networth.incomeM
+    balance = networth.balance
+    rel_balance = networth.balance
+    avgincome = round(income/days, 2)
+    days_array=[]
+    networth_array=[]
+
+    for i in range(days):
+        days_array.append(i+1)
+        rel_balance = round(rel_balance+avgincome,2)
+        networth_array.append(rel_balance)
+    # print(networth_array)
+    # print(days_array)
 
     context = {
         'pqs' : pqs,
@@ -62,6 +77,9 @@ def list(request):
         'nf':nf,
         'df':df,
         'days':days,
+        'income': income,
+        'avgincome': avgincome,
+        'balance': balance
     }
     return render(request, 'list.html', context)
 
@@ -226,6 +244,7 @@ def test(request):
     assets = networth[0].assets
 
 
+
     context={
         'pl':pl,
         'el':el,
@@ -276,9 +295,88 @@ def editnetworth(request, pk):
 
 
 def tryall(request):
+    networth=Networth.objects.first()
+    days =30
+    income = networth.incomeM
+
+    balance = networth.balance
+    rel_balance = networth.balance
+    avgincome = round(income/days, 2)
+    days_array=[]
+    networth_array=[]
+    avg_networht_array=[]
+
+   
+    for i in range(days):
+        days_array.append(i+1)
+        rel_balance = round(rel_balance+avgincome,2)
+        networth_array.append(rel_balance)
+        avg_networht_array.append(avgincome)
+    # print(networth_array)
+    # print(days_array)
+
+   
+    expList = []
+
+    sumExpens=0
+    sumExpenses=round(sumExpens,2)
+    
+    # print(pl)
+
+    for i in range(days):
+        
+        seqs = ExpensesItem.objects.filter(date__day = i).aggregate(Sum('amount')).get('amount__sum')
+
+        # New Purpose might have no Expenses under their name: so the Value is Null
+        # Reasigning the Value to zero does not fukc with the JS
+        
+        if seqs == None:
+            seqs = 0
+        # print(seqs)
+        expList.append(float(seqs))
+        sumExpenses+=int(seqs)
+     
+        # print(sumExpenses)
+    # print(expList)
+    
+    difference=[]
+
+    for i in range(days):
+
+        difday = avg_networht_array[i] - expList[i]
+        difference.append(difday)
+        # print(difday)
+    # print(difday)
+
+
+     # diffrence 
+    # difference2 =[]
+    # for i in range(days):
+    #     difnet = networth_array[i]-expList[i]
+    #     difference2.append(difnet)
+    #     # print(difference2)
+
+    # for i in range(days):
+    #     days_array.append(i+1)
+    #     rel_balance = round(rel_balance+avgincome,2)
+    #     networth_array.append(rel_balance)
+    #     avg_networht_array.append(avgincome)
+    
+    difference2 = []
+    for i in range(days):
+        rel_balance =round(rel_balance + avgincome - expList[i],2)
+        difference2.append(rel_balance)
 
     context={
-        
+        'income':income,
+        'balance':balance,
+        'networth_array':networth_array,
+        'days_array':days_array,
+        'avg_networth_array':avg_networht_array,
+        'expList':expList,
+        'difference': difference,
+        'difference2': difference2,
+        'sumExpenses':sumExpenses,
     }
 
-    return render(request, "tryall.html", context)
+    return render(request, "networth.html", context)

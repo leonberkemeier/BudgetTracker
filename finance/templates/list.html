@@ -11,8 +11,12 @@
     <link rel="stylesheet" href="{% static 'css/list.css' %}">
 </head>
 <body>
-    <h1>help <span>{{days}}</span></h1>
+    <h1>days <span>{{days}}</span></h1>
+    <h1>income <span>{{income}}</span></h1>
 
+    <h1>avgincome <span>{{avgincome}}</span></h1>
+
+    <h1>balance <span>{{balance}}</span></h1>
     <div class="container">
 
         <div class="selector">
@@ -106,7 +110,9 @@
             </div>
             <div class="split_expenses">
                 <div class="split_expenses_chart" id="split_expenses_chart"></div>
+              
             </div>
+            
         </div>
         <button><a href="{% url 'addexpense' %}">add expense</a></button>
     </div>
@@ -116,6 +122,9 @@
     const yArray =[{% for ex in expenses %} '{{ ex.date }}', {% endfor %}];
 
     const xArray =[{% for ex in expenses %} {{ex.amount}}, {% endfor %}];
+
+
+ 
         
     </script>
 

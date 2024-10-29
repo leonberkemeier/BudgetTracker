@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Networth</title>
+    <script src='https://cdn.plot.ly/plotly-2.35.2.min.js'></script>
+    <link rel="stylesheet" href="{% static 'css/networth.css' %}"">
+</head>
+<body>
+    <div class="container">
+        <div id='myDiv'></div> 
+        <div id='myDiv4'></div>
+        <div id='myDiv1'></div> 
+        <div id='myDiv2'></div> 
+        <div id='myDiv3'></div>
+    </div>
+    <div class="container2">
+        <h1>Stuff</h1>
+        <h1>income {{income}}</h1>
+        <h1>balance {{balance}}</h1> 
+        <h1>SumExpenses {{sumExpenses}}</h1>
+    </div>
+    
+
+    <script>
+        const xArray =[{% for i in days_array %} {{i}}, {% endfor %}];
+        const yArray =[{% for j in networth_array %} {{j}}, {% endfor %}];
+        const y1Array = [{% for j in avg_networth_array %} {{j}}, {% endfor %}];
+        const y2Array = [{% for j in expList %} {{j}}, {% endfor %}];
+        const y3Array = [{% for j in difference %} {{j}}, {% endfor %}];
+        const y4Array = [{% for j in difference2 %} {{j}}, {% endfor %}];
+    </script>
+    
+    <script defer src="{% static 'js/networth.js' %}"></script>
+</body>
+</html>
