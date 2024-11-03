@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/old_index.css' %}">
+</head>
+<body onload="myFunction()">
+    <div class="header">
+        <div class="nav_logo">
+            <h1>tracker</h1>
+        </div>
+        <div class="nav_container">
+            <div class="item surplus"><h3>surplus</h3></div>
+            <div class="item budget"><h3>budget</h3></div>
+            <div class="item portfolio"><h3>protfolio</h3></div>
+            <div class="item date"><h3>date: sunday, feb5, 2023</h3></div>            
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="sb_container">
+            <div class="item time">
+                
+                <h2>date</h2>
+                <span id="Date_today"></span>
+               
+            </div>
+            <div class="item year">
+                <h3>year</h3>
+                <div class="years">
+                    <button class="2023">2023</button>
+                    <button class="2024">2024</button>
+                </div>
+
+            </div>
+            <div class="item month">
+                <h3>month</h3>
+                <div class="months">
+                    <button class="january">January</button>
+                    <button class="february">february</button>
+                    <button class="march">march</button>
+                    <button class="april">april</button>
+                    <button class="may">may</button>
+                    <button class="june">june</button>
+                    <button class="july">july</button>
+                    <button class="august">august</button>
+                    <button class="september">september</button>
+                    <button class="ocotober">ocotober</button>
+                    <button class="november">november</button>
+                    <button class="december">december</button>
+                
+                </div>
+                </div>
+            <div class="item expenses">
+                <h3>add data</h3>
+                <div class="add_expenses">
+                    <button class="noselect">
+                        <span class="text">Add</span>
+                        <span class="icon">
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                        </span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+       {% include "content.html"%}
+    </div>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

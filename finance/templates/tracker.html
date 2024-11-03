@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tracker</title>
+    <link rel="stylesheet" href="{% static 'css/tracker.css' %}">
+</head>
+<body>
+    <h1>tracker</h1>
+    <h1>kpi</h1>
+    <h2>income : {{income}}</h2>
+    <h2>totalexpenses : {{totalexpenses}}</h2>
+    <h2>assets : {{assets}}</h2>
+    <h2>balance : {{balance}}</h2>
+
+    <h1>date</h1>
+    
+    <h2>month : {{month}}</h2>
+    <h2>year : {{year}}</h2>
+    
+
+
+    <script defer src="{% static 'js/tracker.js' %}"></script>
+</body>
+</html>

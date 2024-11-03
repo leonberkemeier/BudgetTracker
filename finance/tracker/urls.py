@@ -19,6 +19,7 @@ urlpatterns = [
     path('delete_purpose/<str:pk>/', views.deletepurpose, name='delete_purpose'),
 
     path('list', views.list, name='list'),
+    path('tracker', views.tracker, name='tracker'),
     path('test', views.test, name='test'),
     path('tryall', views.tryall, name='tryall')
 

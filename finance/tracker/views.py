@@ -18,38 +18,106 @@ import json
 
 def home(request):
     
-    return render(request, "index.html")
+    return render(request, "old_index.html")
+
+
+def tracker(request):
+    expenses1 =ExpensesItem.objects.all()
+    expenses, month, year = datefilter(request)
+    
+    if year is not None and month is not None:
+        days = calendar.monthrange(int(year),int(month))[1]
+
+    networth = Networth.objects.first()
+    income = networth.incomeM
+    balance = networth.balance
+    assets = networth.assets
+    rel_balance = networth.balance
+    avgincome = round(income/days, 2)
+    
+
+
+    # Array of days
+    days_array=[]    
+
+    for i in range(days):
+        days_array.append(i+1)
+    
+
+    # Array of Expenses
+    expenses_array = []
+
+    sumExpens=0
+    sumExpenses=round(sumExpens,2)
+
+    for i in range(days):
+        
+        seqs = expenses.filter(date__day = i).aggregate(Sum('amount')).get('amount__sum')
+
+        if seqs == None:
+            seqs = 0
+
+        expenses_array.append(float(seqs))
+        sumExpenses+=int(seqs)
+    print(expenses_array)
+    totalexpenses = sumExpenses
+
+    context={
+        'income':income,
+        'totalexpenses':totalexpenses,
+        'assets':assets,
+        'balance':balance,
+
+        'networth':networth,
+
+        'days_array':days_array,
+        'expenses_array': expenses_array,
+        
+        
+        
+        'rel_balance':rel_balance,
+        'avgincome': avgincome,
+        'expenses' : expenses,
+        'expenses1' : expenses1,
+        'days':days,
+        'year':year,
+        'month':month
+
+
+    }
+
+    return render(request, "index.html", context)
 
 def list(request):
 
-    current_year = datetime.now().year
-    current_month = datetime.now().month
-    expenses = ExpensesItem.objects
+    # current_year = datetime.now().year
+    # current_month = datetime.now().month
+    
     purposes = Purpose.objects
-  
-    
-    year = request.GET.get('year', current_year)
-    month = request.GET.get('month', current_month)
 
-    if year is not None and year != '':
-        expenses = expenses.filter(date__year=year)
+   
     
-    if month is not None and month != '':
-        expenses = expenses.filter(date__month =month)
+    # year = request.GET.get('year', current_year)
+    # month = request.GET.get('month', current_month)
+
+    # if year is not None and year != '':
+    #     expenses = expenses.filter(date__year=year)
+    
+    # if month is not None and month != '':
+    #     expenses = expenses.filter(date__month =month)
 
     # pqs =Purpose.objects.values_list('purpose' ,flat= True)
     # print(pqs[0])
     n = Networth.objects.all()
     nf = netfilter(n)
 
-    d = ExpensesItem.objects.all()
-    df = datefilter(d)
+
 
     pqs = purposeList(filter='purpose')
     # print(pqs)
     eql = expenseList()
     # print(eql)
-    expenses = expenses.all()
+    expenses, month, year = datefilter(request)
 
     if year is not None and month is not None:
         days = calendar.monthrange(int(year),int(month))[1]
@@ -75,7 +143,7 @@ def list(request):
         'month':month,
         'year':year,
         'nf':nf,
-        'df':df,
+  
         'days':days,
         'income': income,
         'avgincome': avgincome,
@@ -83,11 +151,22 @@ def list(request):
     }
     return render(request, 'list.html', context)
 
-def datefilter(d):
-    print(d)
-    df = d.filter(date__month=8)
-    print(df)
-    return df
+
+def datefilter(request):
+    current_year = datetime.now().year
+    current_month = datetime.now().month
+    year = request.GET.get('year', current_year)
+    month = request.GET.get('month', current_month)
+    expenses =ExpensesItem.objects
+
+    if year is not None and year != '':
+        expenses = expenses.filter(date__year=year)
+    
+    if month is not None and month != '':
+        expenses = expenses.filter(date__month =month)
+    expenses = expenses.all()
+    
+    return (expenses, month, year)
 
 def netfilter(n):
     # print(n)
