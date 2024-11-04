@@ -22,7 +22,6 @@ def home(request):
 
 
 def tracker(request):
-    expenses1 =ExpensesItem.objects.all()
     expenses, month, year = datefilter(request)
     
     if year is not None and month is not None:
@@ -35,15 +34,12 @@ def tracker(request):
     rel_balance = networth.balance
     avgincome = round(income/days, 2)
     
-
-
     # Array of days
     days_array=[]    
 
     for i in range(days):
         days_array.append(i+1)
     
-
     # Array of Expenses
     expenses_array = []
 
@@ -59,9 +55,23 @@ def tracker(request):
 
         expenses_array.append(float(seqs))
         sumExpenses+=int(seqs)
-    print(expenses_array)
-    totalexpenses = sumExpenses
+    
+    totalexpenses = sumExpenses 
 
+    average_networth_array = []
+    for i in range(days):
+        rel_balance =round(rel_balance + avgincome - expenses_array[i],2)
+        average_networth_array.append(rel_balance)
+    
+    expenses_and_income_pd=[]
+    for i in range(days):
+        difday = avgincome - expenses_array[i]
+        expenses_and_income_pd.append(difday)
+    
+    pl = purposeList(filter='purpose') 
+    print(pl)
+    el = expenseList(expenses)
+    print(el)
     context={
         'income':income,
         'totalexpenses':totalexpenses,
@@ -72,18 +82,16 @@ def tracker(request):
 
         'days_array':days_array,
         'expenses_array': expenses_array,
-        
-        
-        
         'rel_balance':rel_balance,
-        'avgincome': avgincome,
-        'expenses' : expenses,
-        'expenses1' : expenses1,
+        'average_networth_array': average_networth_array,
+        'expenses_and_income_pd':expenses_and_income_pd,
+        
         'days':days,
         'year':year,
-        'month':month
+        'month':month,
 
-
+        'pl': pl,
+        'el': el,
     }
 
     return render(request, "index.html", context)
@@ -182,14 +190,14 @@ def purposeList(filter):
     lpqs = lp
     return lpqs
 
-def expenseList():
+def expenseList(exp):
     el = []
     pl = purposeList(filter='purpose')
     # print(pl)
 
     for i in range(len(pl)):
         
-        seqs =ExpensesItem.objects.filter(purpose = pl[i]).aggregate(Sum('amount')).get('amount__sum')
+        seqs =exp.filter(purpose = pl[i]).aggregate(Sum('amount')).get('amount__sum')
 
         # New Purpose might have no Expenses under their name: so the Value is Null
         # Reasigning the Value to zero does not fukc with the JS
@@ -315,7 +323,8 @@ def deletepurpose(request, pk):
 
 def test(request):
     pl = purposeList(filter='purpose') 
-    el = expenseList()
+    expenses = ExpensesItem.objects
+    el = expenseList(expenses)
     
     networth = Networth.objects.all()
     balance = networth[0].balance

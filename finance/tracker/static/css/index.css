@@ -15,6 +15,7 @@
  --sidebar-width: 200px;
  --border-radius: 5px;
  --header-height: 50px;
+ --border-radius: 10px;
 }
 
 body{
@@ -384,6 +385,7 @@ transition: 200ms;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border-radius: var(--border-radius);
 }
 .body-main .container-bm-first .expenses_per_day{
     display: flex;
@@ -401,17 +403,49 @@ transition: 200ms;
     height: 100%;
     width: 41%;
     background: var(--light-grey);
-    border: 1px solid green;
     border-radius: var(--border-radius);
+   
     min-width: 400px;
-    margin: 1px;
+    margin: 0 10px 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.body-main .container-bm-second .second-container{
+    width: 100%;
+    height: 100%;
+    /* margin: 20px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.body-main .container-bm-second .networth_per_day{
+    margin: 20px 0 20px 0;
+}
+.body-main .container-bm-second .second-container .average_networth_per_day{
+    height: 50px;
 }
 .body-main .container-bm-third{
     height: 100%;
     width: 25%;
     background: var(--light-grey);
-    border: 1px solid green;
+    /* border: 1px solid green; */
     border-radius: var(--border-radius);
     min-width: 400px;
     margin: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.body-main .container-bm-third .third-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.body-main .container-bm-third .third-container .donut{
+    margin: 20px 0 20px 0;
 }

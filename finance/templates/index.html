@@ -44,7 +44,7 @@
                     <button class="august">august</button>
                     <button class="september">september</button>
                     <button class="ocotober">ocotober</button>
-                    <button class="november">november</button>
+                    <button class="november"></button>
                     <button class="december">december</button>
                 
                 </div>
@@ -94,24 +94,31 @@
         </div>
         <div class="body-main">
             <div class="container-bm-first">
-                <h1>Expenses per Day</h1>
+                <!-- <h1>Expenses per Day</h1> -->
                 <div class="expenses_per_day">
                     <div class="expenses_per_day_chart" id='expenses_per_day_chart'></div>
                 </div>
                 
             </div>
             <div class="container-bm-second">
-                <h1>second</h1>
-                <div class="networth_per_day">
+                <!-- <h1>Relative Money</h1> -->
+                <div class="second-container">
+            
                     <div class="networth_per_day_chart" id='networth_per_day_chart'></div>
-                </div>
-                <div class="average_networth_per_day">
+                
                     <div class="average_networth_per_day_chart" id='average_networth_per_day_chart'></div>
+                
                 </div>
                 
+                
             </div>
-            <div class="container-bm">
-                <h1>third</h1>
+            <div class="container-bm-third">
+                <!-- <h1>third</h1> -->
+                <div class="third-container">
+                    <div class="donut" id="theDonut"></div>
+                    <div class="PurposeList" id="PurposeList"></div>
+                  
+                </div>
             </div>
         </div>
     </div>
@@ -119,8 +126,13 @@
     <script>
         // const yArray =[{% for ex in expenses %} '{{ ex.date }}', {% endfor %}];
         // const xArray =[{% for ex in expenses %} {{ex.amount}}, {% endfor %}];
-        const yArray = [{% for i in days_array %} {{i}}, {% endfor %}];
+        const TageArray = [{% for i in days_array %} {{i}}, {% endfor %}];
         const xArray = [{% for j in expenses_array %} {{j}}, {% endfor %}];
+        const y1Array = [{% for j in  average_networth_array %} {{j}}, {% endfor %}];
+        const y2Array = [{% for j in  expenses_and_income_pd %} {{j}}, {% endfor %}];
+        const yDonut = [{% for j in  pl %} '{{j}}', {% endfor %}];
+        const xDonut = [{% for j in  el %} {{j}}, {% endfor %}];
+
     </script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
