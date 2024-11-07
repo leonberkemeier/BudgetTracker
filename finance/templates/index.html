@@ -19,36 +19,36 @@
         <div class="sb_container">
             <div class="item time">
                 
-                <h2>date</h2>
+                <h3>date</h3>
                 <span id="Date_today"></span>
                
             </div>
             <div class="item year">
                 <h3>year</h3>
                 <div class="years">
-                    <button class="2023">2023</button>
-                    <button class="2024">2024</button>
+                    <a href= '/tracker?year=2024&month={{month}}'><button>2024</button></a>
+                    <a href= '/tracker?year=2025&month={{month}}'><button>2025</button></a>
                 </div>
 
             </div>
             <div class="item month">
                 <h3>month</h3>
                 <div class="months">
-                    <button class="january">January</button>
-                    <button class="february">february</button>
-                    <button class="march">march</button>
-                    <button class="april">april</button>
-                    <button class="may">may</button>
-                    <button class="june">june</button>
-                    <button class="july">july</button>
-                    <button class="august">august</button>
-                    <button class="september">september</button>
-                    <button class="ocotober">ocotober</button>
-                    <button class="november"></button>
-                    <button class="december">december</button>
-                
+                    <a href= '/tracker?year={{year}}&month=1'><button class="january">January</button></a>
+                    <a href= '/tracker?year={{year}}&month=2'><button class="february">february</button></a>
+                    <a href= '/tracker?year={{year}}&month=3'><button class="march">march</button></a>
+                    <a href= '/tracker?year={{year}}&month=4'><button class="april">april</button></a>
+                    <a href= '/tracker?year={{year}}&month=5'> <button class="may">may</button></a>
+                    <a href= '/tracker?year={{year}}&month=6'><button class="june">june</button></a>
+                    <a href= '/tracker?year={{year}}&month=7'><button class="july">july</button></a>
+                    <a href= '/tracker?year={{year}}&month=8'><button class="august">august</button></a>
+                    <a href= '/tracker?year={{year}}&month=9'><button class="september">september</button></a>
+                    <a href= '/tracker?year={{year}}&month=10'><button class="ocotober">ocotober</button></a>
+                    <a href= '/tracker?year={{year}}&month=11'><button class="november">november</button></a>
+                    <a href= '/tracker?year={{year}}&month=12'><button class="december">december</button></a>
+                    
                 </div>
-                </div>
+            </div>
             <div class="item expenses">
                 <h3>add data</h3>
                 <div class="add_expenses">
@@ -95,6 +95,12 @@
         <div class="body-main">
             <div class="container-bm-first">
                 <!-- <h1>Expenses per Day</h1> -->
+                 <div class="filter_for">
+                    
+                    <h2>  year: {{year}}</h2>
+                    <h2>month: {{month}}</h2>
+                    
+                 </div>
                 <div class="expenses_per_day">
                     <div class="expenses_per_day_chart" id='expenses_per_day_chart'></div>
                 </div>
@@ -104,9 +110,16 @@
                 <!-- <h1>Relative Money</h1> -->
                 <div class="second-container">
             
-                    <div class="networth_per_day_chart" id='networth_per_day_chart'></div>
+                    <div class="networth_per_day">
+                        <div class="networth_per_day_chart" id='networth_per_day_chart'></div>
+                    </div>
+                    
+
+                    <div class="average_networth_per_day">
+                        <div class="average_networth_per_day_chart" id='average_networth_per_day_chart'></div>
+                    </div>
                 
-                    <div class="average_networth_per_day_chart" id='average_networth_per_day_chart'></div>
+                    
                 
                 </div>
                 
@@ -115,9 +128,14 @@
             <div class="container-bm-third">
                 <!-- <h1>third</h1> -->
                 <div class="third-container">
-                    <div class="donut" id="theDonut"></div>
-                    <div class="PurposeList" id="PurposeList"></div>
-                  
+                    <div class="PurposeList_container">
+                        <div class="PurposeList" id="PurposeList"></div>
+                    </div>   
+
+                    <div class="donut_container">
+                        <div class="donut" id="theDonut"></div>
+                    </div>
+                                   
                 </div>
             </div>
         </div>

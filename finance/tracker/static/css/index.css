@@ -16,6 +16,7 @@
  --border-radius: 5px;
  --header-height: 50px;
  --border-radius: 10px;
+ --border-radius-s:5px;
 }
 
 body{
@@ -23,10 +24,11 @@ body{
     color: white;
     display: flex;
     flex-direction: row;
+    
 }
  
 .sidebar{
-    display: absolute;
+    
     top: 0;
     left: 0;
     width: var(--sidebar-width);
@@ -38,7 +40,9 @@ body{
     align-items: center;
     padding: 20px 0 20px 0;
     max-width: 200px;
-    min-width: 100px
+    min-width: 100px;
+    position: fixed;
+    z-index: 2;
 }
 .sidebar .header-sidebar{
     width: 100%;
@@ -81,17 +85,20 @@ body{
 
 
 .main{
+    margin-left: var(--sidebar-width);
     width: calc(100% - var(--sidebar-width));
     background: var(--medium-grey);
-    
+    height: calc(100% - 10px);
 }
 .main .header-main .hide{
     display: none;
+
 }
 
 .main.show-main{
     width: 100%;
     transition: .2s;
+    margin-left: 0;
 }
 .main .header-main{
     display: flex;
@@ -132,16 +139,18 @@ body{
     margin: 15px;
 }
 
-.time h2{
+.time h3 ,.year h3 ,.month h3, .expenses h3{
     margin-bottom: 20px;
 }
+
 
 .time span{
     color: white;
     font-size: 20px;
     background-color: var(--purple-dark);
     padding: 5px;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-s);
+    
 }
 .content{
     position: relative;
@@ -157,8 +166,8 @@ button{
     background-color: var(--purple-dark);
     border: none;
     color: white;
-    border-radius: var(--border-radius);
-    border-radius: var(--border-radius);
+    
+    border-radius: var(--border-radius-s);
 }
 
 button:hover{
@@ -173,11 +182,11 @@ button:hover{
     flex-direction: column;
 }
 
-.years button{
-    margin: 5px;
-    width: 100%;
-    height: 40px;
-    font-size: 30px;
+.year button {
+    margin-bottom: 5px;
+    width: 110%;
+    height: 110%;
+    font-size: 20px;
 }
 
 .months button{
@@ -375,17 +384,37 @@ transition: 200ms;
     border-radius: var(--border-radius);
     min-width: 400px;
     margin: 1px;
+    /* margin-bottom: 10px; */
 }
 
 .body-main .container-bm-first{
     background: var(--light-grey);
-    width: 25%;
-    height: 100%;
+    width: calc(25% - 10px);
+    height: calc(100% - 10px);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
     border-radius: var(--border-radius);
+    padding: 0px 0 10px 0;
+    min-height: 900px;
+    max-height: 1300px;
+    min-width: 400px;
+    margin-bottom: 10px;
+}
+.body-main .container-bm-first .filter_for{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--light-grey);
+    width: 100%;
+    border-radius: var(--border-radius);
+    border-bottom: 1px solid var(--medium-grey);
+
+}
+.body-main .container-bm-first .filter_for h2{
+    padding: 20px;
 }
 .body-main .container-bm-first .expenses_per_day{
     display: flex;
@@ -400,44 +429,73 @@ transition: 200ms;
 }
 
 .body-main .container-bm-second{
-    height: 100%;
-    width: 41%;
-    background: var(--light-grey);
-    border-radius: var(--border-radius);
-   
-    min-width: 400px;
-    margin: 0 10px 0 10px;
+    background: var(--medium-grey);
+    width: calc(48% - 10px);
+    height: calc(100% - 10px);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    border-radius: var(--border-radius);
+    max-height: 1300px;
+    min-height: 900px;
+    min-width: 400px;
+    margin: 0 10px 10px 10px;
 }
 .body-main .container-bm-second .second-container{
     width: 100%;
     height: 100%;
-    /* margin: 20px; */
+    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
 }
-.body-main .container-bm-second .networth_per_day{
-    margin: 20px 0 20px 0;
-}
-.body-main .container-bm-second .second-container .average_networth_per_day{
-    height: 50px;
-}
-.body-main .container-bm-third{
-    height: 100%;
-    width: 25%;
-    background: var(--light-grey);
-    /* border: 1px solid green; */
+.body-main .container-bm-second .second-container .networth_per_day{
+    padding: 10px 10px 10px 10px;
+    background-color: var(--light-grey);
+    min-height: 600px;
+    height:50%;
     border-radius: var(--border-radius);
-    min-width: 400px;
-    margin: 1px;
+    margin-bottom: 10px;
+    
+}
+.body-main .container-bm-second .second-container .networth_per_day_chart{
+
+    background-color: var(--light-grey);
+    
+    height: 100%;
+    width: 100%;
+}
+
+.body-main .container-bm-second .second-container .average_networth_per_day{
+    padding: 10px 10px 10px 10px;
+    background-color: var(--light-grey);
+    min-height: 600px;
+    height: 50%;
+    border-radius: var(--border-radius);
+   
+}
+.body-main .container-bm-second .second-container .average_networth_per_day_chart{
+    background-color: var(--light-grey);
+    
+    height: 100%;
+    width: 100%;
+}
+
+.body-main .container-bm-third{
+    background: var(--medium-grey);
+    width: calc(25% - 10px);
+    height: calc(100% - 10px);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    border-radius: var(--border-radius);
+    max-height: 1300px;
+    min-height: 900px;
+    min-width: 400px;
+    margin-bottom: 10px;
 }
 .body-main .container-bm-third .third-container{
     height: 100%;
@@ -445,7 +503,110 @@ transition: 200ms;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    background-color: var(--medium-grey);
+    
+    /* background-color: var(--medium-grey); */
 }
-.body-main .container-bm-third .third-container .donut{
-    margin: 20px 0 20px 0;
+.body-main .container-bm-third .third-container .donut_container{
+    padding: 10px 10px 10px 10px;
+    background-color: var(--light-grey);
+    height: 600px;
+    border-radius: var(--border-radius);
+    
+}
+
+.body-main .container-bm-third .third-container .donut_container .donut{
+    background-color: var(--medium-grey);
+    
+    height: 100%;
+    width: 100%;
+}
+.body-main .container-bm-third .third-container .PurposeList_container{
+    padding: 10px 10px 10px 10px;
+    background-color: var(--light-grey);
+    height: 600px;
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+}
+.body-main .container-bm-third .third-container .PurposeList_container .PurposeList{
+    background-color: var(--medium-grey);
+    
+    height: 100%;
+    width: 100%;
+}
+
+@media only screen and (max-width: 1760px) {
+    
+    .body-main .container-bm-first{
+        width: calc(36% - 10px);
+    }
+    .body-main .container-bm-second{
+        width: calc(60% - 10px);
+    }
+    .body-main .container-bm-third{
+        width: 100%;
+        padding: 0 20px 0 10px;
+        
+    }
+    .body-main .container-bm-third .third-container{
+        flex-direction: row;
+        width: 100%;
+        padding: 0 20px 0 20px;
+    }
+    .body-main .container-bm-third .third-container .PurposeList_container{
+        width: 50%;
+        margin-right: 10px;
+    }
+    .body-main .container-bm-third .third-container .donut_container{
+        width: 50%;
+    }
+    
+}
+
+@media only screen and (max-width: 1460px) {
+    .main .header-main{
+        height: 200px;
+    }
+    .main .header-main h1{
+        font-size: 30px;
+    }
+    .sidebar{
+        width: 40%;
+        max-width: 50%;
+        opacity: .8;
+    }
+    .main{
+        margin-left: 0px ;
+        width: 100%;
+    }
+    .main .header-main ion-icon{
+        font-size: 50px;
+    }
+    .sidebar .header-sidebar{
+        display: flex;
+        justify-content: right;
+        padding: 0 40px 0 0 ;
+    }
+    .sidebar .header-sidebar ion-icon{
+        font-size: 50px;
+        margin-top: 50px;
+        border-radius: 5px;
+    }
+    .sidebar .header-sidebar h1{
+        display: none;
+    }
+    .time h3, .year h3, .month h3, .expenses h3{
+        font-size: 50px;
+    }
+    .time span{
+        font-size: 50px;
+    }
+    .years button, .month button,.expenses button{
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+        font-size: 40px;
+        height: 60px;
+        width: 300px;
+    }
 }
