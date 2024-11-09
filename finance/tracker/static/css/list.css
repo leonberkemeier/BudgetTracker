@@ -1,38 +1,281 @@
 *{
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Courier New', Courier, monospace;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
+:root{
+ --light-grey: rgb(38,38,38);
+ --medium-grey: rgb(23, 23,23);
+ --dark-grey: rgb(13,13,13);
+
+ --purple-light:rgb(114, 116, 214);
+ --purple-dark:rgb(88, 95, 164);
+
+ --sidebar-width: 200px;
+ --border-radius: 5px;
+ --header-height: 50px;
+ --border-radius: 10px;
+ --border-radius-s:5px;
+}
 body{
-    background: rgb(108, 108, 108);
-}
+    background-color: var(--medium-grey);
 
-.container{
+}
+.body-main{
+    width: 100%;
+    height: calc(100vh - var(--header-height) - 5px);
+    background: var(--medium-grey);
     display: flex;
-    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    background: rgb(167, 167, 167);
-    height: 100vh;
-    width: 100vw;
+}
+.body-main .container-list-first{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--medium-grey);
+    width: calc(71% - 10px);
+    height: calc(100% - 10px);
+    border-radius: var(--border-radius);
+    min-width: 400px;
+    /* max-width: 2000px;    */
+    min-height: 900px;
+    max-height: 2400px;
+}
+.body-main .container-list-first .BarChartContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: var(--light-grey);
+    border-radius: var(--border-radius);
+    height: 50%;
+    width: 100%;
+    min-height: 300px;
+    max-height: 1000px;
+    max-width: 2000px;
+    position: relative;
+}
+.body-main .container-list-first .BarChartContainer .dateyearmonth{
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: row;
+}
+.body-main .container-list-first .BarChartContainer .dateyearmonth h2{
+    margin: 3px;
+    font-size: 15px;
+}
+.body-main .container-list-first .BarChartContainer .dateyearmonth h2 span{
+    color: var(--purple-light);
+}
+
+.body-main .container-list-first .BarChartContainer .avg_networth_contaienr{
+    width: 100%;
+    height: 90%;
+    padding: 10px;
+}
+
+.body-main .container-list-first .BarChartContainer .avg_networth_contaienr .average_networth_per_day_chart{
+    height: 100%;
+    width: 100%;
+}
+
+.body-main .container-list-first .ListContainer{
     
+    padding:  10px 0 10px 0;
+    background-color: var(--light-grey);
+    border-radius: var(--border-radius);
+    height: 50%;
+    width: 100%;
+    min-height: 200px;
+    max-height: 1000px;
+    max-width: 2000px;
+    margin-top: 10px;
+    background-color: var(--light-grey);
+    /* overflow: auto; */
     
 }
 
-.table-container{
-    margin: 10px;
+.body-main .container-list-first .ListContainer .container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    background-color: var(--light-grey);
+    padding:5px;
+    overflow: auto;
 }
 
-.table-container button a{
-    color: white;
+.body-main .container-list-first .ListContainer .container table{
+    border: 1px solid black;
+    border-radius: 5px;
+    border-spacing: 0;
+    width: 100%;
+  
+    height: 100%;
+    width: 100%;
+    background-color: var(--medium-grey);
+    border-collapse: collapse;
 }
 
-.table-container button{
-    width: 70px;
-    height: 30px;
-    background-color: orange;
-    border: none;
-    border-radius: 10px;
+.body-main .container-list-first .ListContainer .container table th{
+    height: 40px;   
+    text-align: left;
+    padding: 8px;   
+    min-width: 90px;
+    background-color: var(--dark-grey);
+}
+.body-main .container-list-first .ListContainer .container table td{
+    
+    height: 30px;   
+    text-align: left;
+    padding: 8px;   
+    min-width: 90px
+}
+.body-main .container-list-first .ListContainer .container table td a{
+    color: var(--purple-dark);
+}
+
+.body-main .container-list-first .ListContainer .container table tr:nth-child(even){
+    background-color: var(--dark-grey)
+}
+.body-main .container-list-first .ListContainer .container table tr:hover{
+    background-color: var(--light-grey);
+}
+.body-main .container-list-second{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--medium-grey);
+    width: calc(23%  - 10px);
+    height: calc(100% - 10px);
+    margin-left: 10px;
+   
+    min-width: 400px;
+    min-height: 900px;
+    max-height: 2400px;
+}
+.body-main .container-list-second .DonutList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    background-color: var(--light-grey);
+    height: 34%;
+    min-height: 300px;
+    max-height: 900px;
+    width: 100%;
+    border-radius: var(--border-radius);
+    
+}
+.body-main .container-list-second .DonutList .donutChart{
+    width: 100%;
+    height: 100%;
+}
+.body-main .container-list-second .PurposeList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    background-color: var(--light-grey);
+    height: 32%;
+    min-height: 300px;
+    max-height: 900px;
+    width: 100%;
+    border-radius: var(--border-radius);
+   
+}
+.body-main .container-list-second .PurposeList .PurposeListChart{
+    width: 100%;
+    height: 100%;
+}
+.body-main .container-list-second .FixedCost{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 31%;
+    background-color: var(  --light-grey);
+    border-radius: var(--border-radius);
+    padding: 20px;
+}
+.body-main .container-list-second .FixedCost .container{
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.body-main .container-list-second .FixedCost .container table{
+    border: 1px solid black;
+    border-radius: 5px;
+    border-spacing: 0;
+    width: 100%;
+  
+    height: 100%;
+    width: 100%;
+    background-color: var(--medium-grey);
+    border-collapse: collapse;
+}
+.body-main .container-list-second .FixedCost .container table td a{
+    color: var(--purple-dark);
+}
+.body-main .container-list-second .FixedCost .container table th{
+    height: 40px;   
+    text-align: left;
+    padding: 8px;   
+    min-width: 40px;
+    background-color: var(--dark-grey);
+}
+.body-main .container-list-second .FixedCost  .container table td{
+    height: 30px;   
+    text-align: left;
+    padding: 8px;   
+    min-width: 40px
+}
+.body-main .container-list-second .FixedCost .container table tr:nth-child(even){
+    background-color: var(--dark-grey)
+}
+.body-main .container-list-second .FixedCost .container table tr:hover{
+    background-color: var(--light-grey)
+}
+
+@media only screen and (max-width: 1260px) {
+    .body-main{
+        flex-direction: column;
+        height: 100vh;
+    }
+    .body-main .container-list-first{
+        width: calc(100% - 20px);
+        height: calc(40% - 100px);
+    }
+
+    .body-main .container-list-second{
+        width: calc(100% - 20px);
+        flex-direction: column;
+        height: calc(60% - 100px);
+        
+    }
+    .body-main .container-list-second .PurposeList{
+        height: 800px;
+        margin: 5px;
+    }
+    .body-main .container-list-second .DonutList{
+        height: 800px;
+        margin: 5px;
+    }
+
+    .body-main .container-list-second .FixedCost{
+        height: 800px;
+        margin: 5px;
+    }
+
 }

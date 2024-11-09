@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracker</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" href="{% static 'css/tracking.css' %}">
-    <link rel="stylesheet" href="{% static 'css/list.css' %}">
+    <title>tracker</title>
+    <link rel="stylesheet" href="{% static 'css/index_old.css' %}">
     <script src='https://cdn.plot.ly/plotly-2.35.2.min.js'></script>
 </head>
 <body onload="dateFunction()">
@@ -30,8 +28,8 @@
             <div class="item year">
                 
                 <div class="years">
-                    <a href= './?year=2024&month={{month}}'><button>2024</button></a>
-                    <a href= './?year=2025&month={{month}}'><button>2025</button></a>
+                    <a href= '/tracker?year=2024&month={{month}}'><button>2024</button></a>
+                    <a href= '/tracker?year=2025&month={{month}}'><button>2025</button></a>
                 </div>
 
             </div>
@@ -101,11 +99,69 @@
             
         </div>
         <div class="body-main">
-            {% block content%}
-            {% endblock%}
+            <div class="container-bm-first">
+                <!-- <h1>Expenses per Day</h1> -->
+                 <div class="filter_for">
+                    
+                    <h2>  year: {{year}}</h2>
+                    <h2>month: {{month}}</h2>
+                    
+                 </div>
+                <div class="expenses_per_day">
+                    <div class="expenses_per_day_chart" id='expenses_per_day_chart'></div>
+                </div>
+                
+            </div>
+            <div class="container-bm-second">
+                <!-- <h1>Relative Money</h1> -->
+                <div class="second-container">
+            
+                    <div class="networth_per_day">
+                        <div class="networth_per_day_chart" id='networth_per_day_chart'></div>
+                    </div>
+                    
+
+                    <div class="average_networth_per_day">
+                        <div class="average_networth_per_day_chart" id='average_networth_per_day_chart'></div>
+                    </div>
+                
+                    
+                
+                </div>
+                
+                
+            </div>
+            <div class="container-bm-third">
+                <!-- <h1>third</h1> -->
+                <div class="third-container">
+                    <div class="PurposeList_container">
+                        <div class="PurposeList" id="PurposeList"></div>
+                    </div>   
+
+                    <div class="donut_container">
+                        <div class="donut" id="theDonut"></div>
+                    </div>
+                                   
+                </div>
+            </div>
         </div>
     </div>
     
+    <script>
+        // const yArray =[{% for ex in expenses %} '{{ ex.date }}', {% endfor %}];
+        // const xArray =[{% for ex in expenses %} {{ex.amount}}, {% endfor %}];
+        const TageArray = [{% for i in days_array %} {{i}}, {% endfor %}];
+        const xArray = [{% for j in expenses_array %} {{j}}, {% endfor %}];
+        const y1Array = [{% for j in  average_networth_array %} {{j}}, {% endfor %}];
+        const y2Array = [{% for j in  expenses_and_income_pd %} {{j}}, {% endfor %}];
+        const yDonut = [{% for j in  pl %} '{{j}}', {% endfor %}];
+        const xDonut = [{% for j in  el %} {{j}}, {% endfor %}];
+
+    </script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script defer src="{% static 'js/index.js' %}"></script>
+    <script defer src="{% static 'js/tracking.js' %}"></script>
 </body>
 </html>

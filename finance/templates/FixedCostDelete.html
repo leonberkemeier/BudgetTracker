@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeleteFixedCost
+    </title>
+    <link rel="stylesheet" href="{% static 'css/expenseadd.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <p>you sure yuou want to delete the
+                <br>
+                " {{purpose}} "?</p>
+            <p>specs : </p>
+            <p>date : {{purpose.purpose}}</p>
+            <p>amount : {{purpose.amount}}</p>
+            
+            <form action="" method="POST">
+                {% csrf_token %}
+                <a href="{% url 'list' %}">cancel</a>
+                <input type="submit" name="confirm" id="">
+            </form>
+            <button><a href="{% url 'list'%}">back</a></button>
+        </div>
+    </div>
+   
+</body>
+</html>

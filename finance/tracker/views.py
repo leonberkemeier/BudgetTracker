@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .forms import ExpensesForm, PurposeForm, NetworthForm
+from .forms import ExpensesForm, PurposeForm, NetworthForm, FixedCostForm
 from django.contrib import messages
 from datetime import date,datetime
 
@@ -69,9 +69,9 @@ def tracker(request):
         expenses_and_income_pd.append(difday)
     
     pl = purposeList(filter='purpose') 
-    print(pl)
+    # print(pl)
     el = expenseList(expenses)
-    print(el)
+    # print(el)
     context={
         'income':income,
         'totalexpenses':totalexpenses,
@@ -94,16 +94,12 @@ def tracker(request):
         'el': el,
     }
 
-    return render(request, "index.html", context)
+    return render(request, "index2.html", context)
 
 def list(request):
-
+    
     # current_year = datetime.now().year
     # current_month = datetime.now().month
-    
-    purposes = Purpose.objects
-
-   
     
     # year = request.GET.get('year', current_year)
     # month = request.GET.get('month', current_month)
@@ -116,16 +112,19 @@ def list(request):
 
     # pqs =Purpose.objects.values_list('purpose' ,flat= True)
     # print(pqs[0])
-    n = Networth.objects.all()
-    nf = netfilter(n)
+    # n = Networth.objects.all()
+    # nf = netfilter(n)
 
-
-
-    pqs = purposeList(filter='purpose')
+    # pqs = purposeList(filter='purpose')
     # print(pqs)
-    eql = expenseList()
+    # eql = expenseList(expenses)
     # print(eql)
+  
     expenses, month, year = datefilter(request)
+    purposes = Purpose.objects
+
+    fixedCosts = FixedCost.objects.all()
+    
 
     if year is not None and month is not None:
         days = calendar.monthrange(int(year),int(month))[1]
@@ -134,30 +133,73 @@ def list(request):
     balance = networth.balance
     rel_balance = networth.balance
     avgincome = round(income/days, 2)
-    days_array=[]
+
+    #Sum fixed Costs
+    sumfixedcosts=0
+
+    for i in range(len(fixedCosts)):
+        sumfixedcosts += fixedCosts[i].amount
+    
+    # Array of days
+    days_array=[]    
+
+    for i in range(days):
+        days_array.append(i+1)
+
+    # print(days_array)
     networth_array=[]
 
     for i in range(days):
         days_array.append(i+1)
         rel_balance = round(rel_balance+avgincome,2)
         networth_array.append(rel_balance)
-    # print(networth_array)
-    # print(days_array)
+
+    # Array of Expenses
+    expenses_array = []
+
+    sumExpens=0
+    sumExpenses=round(sumExpens,2)
+
+    for i in range(days):
+        
+        seqs = expenses.filter(date__day = i).aggregate(Sum('amount')).get('amount__sum')
+
+        if seqs == None:
+            seqs = 0
+
+        expenses_array.append(float(seqs))
+        sumExpenses+=int(seqs)
+    
+    totalexpenses = sumExpenses 
+
+    # print(expenses_array)
+    # print(len(expenses_array))
+    pl = purposeList(filter='purpose') 
+    # print(pl)
+    el = expenseList(expenses)
+    # print(el)
 
     context = {
-        'pqs' : pqs,
+        
         'expenses' : expenses,
+        'totalexpenses':totalexpenses,
         'purposes':purposes,
         'month':month,
         'year':year,
-        'nf':nf,
-  
+        
+        'days_array':days_array,
+        'expenses_array': expenses_array,
+
         'days':days,
         'income': income,
         'avgincome': avgincome,
-        'balance': balance
+        'balance': balance,
+        # 'expenses_and_income_pd':expenses_and_income_pd,
+        'fixedCosts': fixedCosts,
+        'pl':pl,
+        'el':el
     }
-    return render(request, 'list.html', context)
+    return render(request, 'list2.html', context)
 
 
 def datefilter(request):
@@ -209,6 +251,10 @@ def expenseList(exp):
         
     # print(el)
     return el
+
+
+
+# Expense
 
 def addexpense(request):
     
@@ -267,6 +313,11 @@ def deleteexpense(request, pk):
 
 
 
+
+
+
+# Purpose
+
 def addpurpose(request):
     
     form = PurposeForm(request.POST)
@@ -321,28 +372,8 @@ def deletepurpose(request, pk):
 
 
 
-def test(request):
-    pl = purposeList(filter='purpose') 
-    expenses = ExpensesItem.objects
-    el = expenseList(expenses)
-    
-    networth = Networth.objects.all()
-    balance = networth[0].balance
-    income = networth[0].incomeM
-    assets = networth[0].assets
 
-
-
-    context={
-        'pl':pl,
-        'el':el,
-        'balance':balance,
-        'income':income,
-        'assets':assets,
-        
-
-    }
-    return render(request, 'test.html', context)
+# NETWORTH
 
 
 def addnetworth(request):
@@ -381,6 +412,102 @@ def editnetworth(request, pk):
     }
     return render(request, "netedit.html" ,context)
 
+
+
+
+# FixedCost
+
+def addFixedCost(request):
+    
+    form = FixedCostForm(request.POST)
+
+    if request.method == 'POST':
+        #print('printpost',request.POST)
+        form = FixedCostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/list')
+ 
+    context = {'form' : form }
+    
+    return render(request, "FixedCostAdd.html" ,context)
+
+
+def editFixedCost(request, pk):
+
+    purpose = FixedCost.objects.get(id=pk)
+    form = FixedCostForm(instance=purpose)
+
+    if request.method == 'POST':
+
+        #print('hey', request.POST)
+        form = FixedCostForm(request.POST, instance=purpose)
+        if form.is_valid():
+            form.save()
+            return redirect('/list')
+ 
+    context={
+        'form':form,
+        'purpose':purpose,
+
+    }
+    return render(request, "FixedCostEdit.html" ,context)
+
+
+def deleteFixedCost(request, pk):
+
+    purpose = FixedCost.objects.get(id=pk)
+    form = FixedCostForm(instance=purpose)
+
+    if request.method == 'POST':
+
+        purpose.delete()
+        return redirect('/list')
+ 
+    context={
+        'form':form,
+        'purpose':purpose
+    }
+    return render(request, "FixedCostDelete.html" ,context)
+
+
+
+
+
+
+
+
+
+
+
+# TESTING
+
+
+
+
+
+def test(request):
+    pl = purposeList(filter='purpose') 
+    expenses = ExpensesItem.objects
+    el = expenseList(expenses)
+    
+    networth = Networth.objects.all()
+    balance = networth[0].balance
+    income = networth[0].incomeM
+    assets = networth[0].assets
+
+
+
+    context={
+        'pl':pl,
+        'el':el,
+        'balance':balance,
+        'income':income,
+        'assets':assets,
+        
+
+    }
+    return render(request, 'test.html', context)
 
 def tryall(request):
     networth=Networth.objects.first()

@@ -1,11 +1,213 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List2</title>
-</head>
-<body>
-    
-</body>
-</html>
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>tracker</title>
+        <link rel="stylesheet" href="{% static 'css/index_old.css' %}">
+        <link rel="stylesheet" href="{% static 'css/list.css' %}">
+
+        
+        <script src='https://cdn.plot.ly/plotly-2.35.2.min.js'></script>
+    </head>
+    <body onload="dateFunction()">
+        
+        <div class="sidebar" id="sidebar">
+            
+            <div class="header-sidebar" >
+                <h1>Portfolio</h1>
+                <ion-icon name="menu-outline" id="toggleOff"  ></ion-icon>
+            </div>
+            <div class="sb_container">
+                <h3>date</h3>
+                <div class="item time">
+                    
+                    
+                    <span id="Date_today"></span>
+                
+                </div>
+                <h3>year</h3>
+                <div class="item year">
+                    
+                    <div class="years">
+                        <a href= '/list?year=2024&month={{month}}'><button>2024</button></a>
+                        <a href= '/list?year=2025&month={{month}}'><button>2025</button></a>
+                    </div>
+
+                </div>
+                <h3>month</h3>
+                <div class="item month">
+                    
+                    <div class="months">
+                        <a href= '/list?year={{year}}&month=1'><button class="january">January</button></a>
+                        <a href= '/list?year={{year}}&month=2'><button class="february">february</button></a>
+                        <a href= '/list?year={{year}}&month=3'><button class="march">march</button></a>
+                        <a href= '/list?year={{year}}&month=4'><button class="april">april</button></a>
+                        <a href= '/list?year={{year}}&month=5'> <button class="may">may</button></a>
+                        <a href= '/list?year={{year}}&month=6'><button class="june">june</button></a>
+                        <a href= '/list?year={{year}}&month=7'><button class="july">july</button></a>
+                        <a href= '/list?year={{year}}&month=8'><button class="august">august</button></a>
+                        <a href= '/list?year={{year}}&month=9'><button class="september">september</button></a>
+                        <a href= '/list?year={{year}}&month=10'><button class="ocotober">ocotober</button></a>
+                        <a href= '/list?year={{year}}&month=11'><button class="november">november</button></a>
+                        <a href= '/list?year={{year}}&month=12'><button class="december">december</button></a>
+                        
+                    </div>
+                </div>
+                <h3>add data</h3>
+                <div class="item expenses">
+                    
+                    <div class="add_expenses">
+                        <button class="noselect">
+                            <span class="text">Add</span>
+                            <span class="icon">
+                                <ion-icon name="add-circle-outline"></ion-icon>
+                            </span>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main" id="main">
+            <div class="header-main">
+                
+                    <ion-icon name="menu-outline" id="toggleOn" class="hide"></ion-icon>
+                
+                <div class="item">
+                    <a href="/tracker"><h1>income</h1></a>
+                    <h1>
+                        : {{income}} $
+                    </h1>
+                </div>
+                <div class="item">
+                    <a href="/list"><h1>total exp</h1></a>
+                    <h1>
+                        : {{totalexpenses}} $
+                    </h1>
+                </div>
+                
+                <div class="item">
+                    <h1>
+                        balance : {{balance}} $
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1>
+                        assets : {{assets}} $
+                    </h1>   
+                </div>
+                
+            </div>
+            <div class="body-main">
+                <div class="container-list-first">
+                    <div class="BarChartContainer">
+                        <div class="dateyearmonth">
+                            <h2> <span>year</span> : {{month}}</h2>
+                            <h2> <span>year</span>: {{year}}</h2>
+                        </div>
+                        <div class="avg_networth_contaienr">
+                            <div class="average_networth_per_day_chart" id='average_networth_per_day_chart'></div>
+                    
+                        </div>
+                        </div>
+                        
+                    <div class="ListContainer">
+                        <div class="container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="ID">ID</th>
+                                        <th class="Date">Date</th>
+                                        <th class="Amount">Amount</th>
+                                        <th class="Purpose">Purpose</th>
+                                        <th class="Comment">Comment</th>
+                                        <th class="Edit">Edit</th>
+                                        <th class="Delete">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in expenses%}
+                                    <tr>
+                                        <td>{{i.id}}</td>
+                                        <td>{{i.date}}</td>
+                                        <td>{{i.amount}}</td>
+                                        <td>{{i.purpose}}</td>
+                                        <td>{{i.comment}}</td>
+                                        <td><a href="{% url 'edit_expense' i.id %}"><ion-icon name="pencil-outline"></ion-icon></a></td>
+                                        <td><a href="{% url 'delete_expense' i.id %}"> <ion-icon name="trash-outline"></ion-icon></a></td>
+                                    </tr>                          
+                                    
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                    </div>
+                </div>
+                <div class="container-list-second">
+                    <div class="PurposeList">
+                    
+                        <div class="PurposeListChart" id="PurposeList"></div>
+                    </div>
+                    <div class="DonutList">
+                        
+                        <div class="donutChart" id="theListDonut"></div>
+                    </div>
+                    <div class="FixedCost">
+                        <div class="container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="ID">ID</th>
+                                        <th class="Amount">Amount</th>
+                                        <th class="Purpose">Purpose</th>
+                                
+                                        <th class="Edit">Edit</th>
+                                        <th class="Delete">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for j in fixedCosts %}
+                                    <tr>
+                                        <td>{{j.id}}</td>
+                                        <td>{{j.amount}}</td>
+                                        <td>{{j.purpose}}</td>
+                                        <td><a href="{% url 'editfixedcost' j.id %}"><ion-icon name="pencil-outline"></ion-icon></a></td>
+                                        <td><a href="{% url 'deletefixedcost' j.id %}"><ion-icon name="trash-outline"></ion-icon></a></td>
+                                       
+                                    </tr>
+                                    {% endfor %}                        
+                                    
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        
+        <script>
+            // const yArray =[{% for ex in expenses %} '{{ ex.date }}', {% endfor %}];
+            // const xArray =[{% for ex in expenses %} {{ex.amount}}, {% endfor %}];
+            const TageArray = [{% for i in days_array %} {{i}}, {% endfor %}];
+            const xArray = [{% for j in expenses_array %} {{j}}, {% endfor %}];
+            // const y2Array = [{% for j in  expenses_and_income_pd %} {{j}}, {% endfor %}];
+            const yDonut = [{% for j in  pl %} '{{j}}', {% endfor %}];
+            const xDonut = [{% for j in  el %} {{j}}, {% endfor %}];
+            
+
+        </script>
+
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script defer src="{% static 'js/index.js' %}"></script>
+        <script defer src="{% static 'js/list.js' %}"></script>
+
+        </body>
+    </html>
