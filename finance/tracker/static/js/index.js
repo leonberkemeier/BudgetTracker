@@ -29,4 +29,14 @@ function dateFunction() {
   
     console.log(today)
     document.getElementById("Date_today").innerHTML = today;
-  }
+};
+
+window.addEventListener("load", () => {
+    const loader = document.querySelector(".loader");
+  
+    loader.classList.add("loader-hidden")
+  
+    loader.addEventListener("transionend", () =>{
+        document.body.removeChild(".loader");
+    })
+});

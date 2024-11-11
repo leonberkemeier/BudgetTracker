@@ -26,7 +26,9 @@ urlpatterns = [
     path('list', views.list, name='list'),
     path('tracker', views.tracker, name='tracker'),
     path('test', views.test, name='test'),
-    path('tryall', views.tryall, name='tryall')
+    path('tryall', views.tryall, name='tryall'),
+    path('balance',views.balance, name='balance'),
+    path('assets',views.assets, name='assets')
 
     
 ]

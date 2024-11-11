@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tracker</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" href="{% static 'css/tracking.css' %}">
-    <link rel="stylesheet" href="{% static 'css/list.css' %}">
+    
     <script src='https://cdn.plot.ly/plotly-2.35.2.min.js'></script>
 </head>
 <body onload="dateFunction()">
@@ -16,7 +15,7 @@
         
         <div class="header-sidebar" >
             <h1>Portfolio</h1>
-            <ion-icon name="menu-outline" id="toggleOff"  ></ion-icon>
+            <ion-icon name="menu-outline" id="toggleOff"></ion-icon>
         </div>
         <div class="sb_container">
             <h3>date</h3>
@@ -75,29 +74,31 @@
             
                 <ion-icon name="menu-outline" id="toggleOn" class="hide"></ion-icon>
             
-            <div class="item">
-                <a href="/tracker"><h1>income</h1></a>
-                <h1>
-                     : {{income}} $
-                </h1>
-            </div>
-            <div class="item">
-                <a href="/list"><h1>total exp</h1></a>
-                <h1>
-                     : {{totalexpenses}} $
-                </h1>
-            </div>
-            
-            <div class="item">
-                <h1>
-                    balance : {{balance}} $
-                </h1>
-            </div>
-            <div class="item">
-                <h1>
-                    assets : {{assets}} $
-                </h1>   
-            </div>
+                <div class="item">
+                    <a href="/tracker"><h1>income</h1></a>
+                    <h1>
+                        : {{income}} $
+                    </h1>
+                </div>
+                <div class="item">
+                    <a href="/list"><h1>total exp</h1></a>
+                    <h1>
+                        : {{totalexpenses}} $
+                    </h1>
+                </div>
+                
+                <div class="item">
+                    <a href="/balance"><h1>balance</h1></a>
+                    <h1>
+                         : {{balance}} $
+                    </h1>
+                </div>
+                <div class="item">
+                    <a href="/assets"><h1>asstes</h1></a>
+                    <h1>
+                         : {{assets}} $
+                    </h1>   
+                </div>
             
         </div>
         <div class="body-main">
@@ -105,7 +106,22 @@
             {% endblock%}
         </div>
     </div>
+
+    <!-- loader -->
     
-    <script defer src="{% static 'js/index.js' %}"></script>
+    <div class="loader">
+        <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+    </div>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script defer src="{% static 'js/index.js' %}"></script>
 </body>
 </html>

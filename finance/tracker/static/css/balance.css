@@ -1,0 +1,10 @@
+.body-main{
+    width: 100%;
+    height: calc(100vh - var(--header-height) - 5px);
+    background: var(--medium-grey);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

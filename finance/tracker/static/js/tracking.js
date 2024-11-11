@@ -8,7 +8,7 @@ function dateFunction() {
 };
 
 // alert("helpme");
-
+// alert('help')
 
 sidebar = document.getElementById("sidebar");
 main = document.getElementById("main");
@@ -403,3 +403,4 @@ var layoutd = {
 };
 
 Plotly.newPlot('theDonut', datad, layoutd,config);
+

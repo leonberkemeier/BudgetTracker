@@ -1,41 +1,105 @@
+{% extends 'index.html' %}
 
-<!DOCTYPE html>
+{% load static %}
 
-<html lang="en">
-<head>
-    {% extends 'index.html' %}
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List</title>
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
-</head>
-<body>
-    {% block content %}
-    <div class="body-main">
-        <div class="container-list-first">
-            <div class="BarChartContainer">
-                barchart
+{% block content%}
+<link rel="stylesheet" href="{% static 'css/list.css' %}">
+<div class="body-main">
+    <div class="container-list-first">
+        <div class="BarChartContainer">
+            <div class="dateyearmonth">
+                <h2> <span>year</span> : {{month}}</h2>
+                <h2> <span>year</span>: {{year}}</h2>
             </div>
-            <div class="ListContainer">
-                List
+            <div class="avg_networth_contaienr">
+                <div class="average_networth_per_day_chart" id='average_networth_per_day_chart'></div>
+        
             </div>
+            </div>
+            
+        <div class="ListContainer">
+            <div class="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="ID">ID</th>
+                            <th class="Date">Date</th>
+                            <th class="Amount">Amount</th>
+                            <th class="Purpose">Purpose</th>
+                            <th class="Comment">Comment</th>
+                            <th class="Edit">Edit</th>
+                            <th class="Delete">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in expenses%}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.date}}</td>
+                            <td>{{i.amount}}</td>
+                            <td>{{i.purpose}}</td>
+                            <td>{{i.comment}}</td>
+                            <td><a href="{% url 'edit_expense' i.id %}"><ion-icon name="pencil-outline"></ion-icon></a></td>
+                            <td><a href="{% url 'delete_expense' i.id %}"> <ion-icon name="trash-outline"></ion-icon></a></td>
+                        </tr>                          
+                        
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        
         </div>
-        <div class="container-list-second">
-            <div class="DonutList">
-                donute
-            </div>
-            <div class="PurposeList">
-                PL
+    </div>
+    <div class="container-list-second">
+        <div class="PurposeList">
+        
+            <div class="PurposeListChart" id="PurposeList"></div>
+        </div>
+        <div class="DonutList">
+            
+            <div class="donutChart" id="theListDonut"></div>
+        </div>
+        <div class="FixedCost">
+            <div class="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="ID">ID</th>
+                            <th class="Amount">Amount</th>
+                            <th class="Purpose">Purpose</th>
+                    
+                            <th class="Edit">Edit</th>
+                            <th class="Delete">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for j in fixedCosts %}
+                        <tr>
+                            <td>{{j.id}}</td>
+                            <td>{{j.amount}}</td>
+                            <td>{{j.purpose}}</td>
+                            <td><a href="{% url 'editfixedcost' j.id %}"><ion-icon name="pencil-outline"></ion-icon></a></td>
+                            <td><a href="{% url 'deletefixedcost' j.id %}"><ion-icon name="trash-outline"></ion-icon></a></td>
+                           
+                        </tr>
+                        {% endfor %}                        
+                        
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>  
+<script>
+    const TageArray = [{% for i in days_array %} {{i}}, {% endfor %}];
+    const xArray = [{% for j in expenses_array %} {{j}}, {% endfor %}];
+    const yDonut = [{% for j in  pl %} '{{j}}', {% endfor %}];
+    const xDonut = [{% for j in  el %} {{j}}, {% endfor %}];
+    
 
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script defer src="{% static 'js/list.js' %}"></script>
-    {% endblock %}
-</body>
-</html>
+</script>
+
+<script defer src="{% static 'js/list.js' %}"></script>
+{% endblock %}

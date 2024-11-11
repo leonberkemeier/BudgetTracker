@@ -18,7 +18,7 @@ import json
 
 def home(request):
     
-    return render(request, "old_index.html")
+    return render(request, "index.html")
 
 
 def tracker(request):
@@ -94,7 +94,7 @@ def tracker(request):
         'el': el,
     }
 
-    return render(request, "index2.html", context)
+    return render(request, "tracker.html", context)
 
 def list(request):
     
@@ -126,11 +126,14 @@ def list(request):
     fixedCosts = FixedCost.objects.all()
     
 
+    
+
     if year is not None and month is not None:
         days = calendar.monthrange(int(year),int(month))[1]
     networth = Networth.objects.first()
     income = networth.incomeM
     balance = networth.balance
+    assets = networth.assets
     rel_balance = networth.balance
     avgincome = round(income/days, 2)
 
@@ -180,9 +183,12 @@ def list(request):
     # print(el)
 
     context = {
-        
-        'expenses' : expenses,
+        'income':income,
         'totalexpenses':totalexpenses,
+        'assets':assets,
+        'balance':balance,
+
+        'expenses' : expenses,
         'purposes':purposes,
         'month':month,
         'year':year,
@@ -191,15 +197,92 @@ def list(request):
         'expenses_array': expenses_array,
 
         'days':days,
-        'income': income,
         'avgincome': avgincome,
-        'balance': balance,
         # 'expenses_and_income_pd':expenses_and_income_pd,
         'fixedCosts': fixedCosts,
         'pl':pl,
         'el':el
     }
-    return render(request, 'list2.html', context)
+    return render(request, 'list.html', context)
+
+
+def balance(request):
+    networth = Networth.objects.first()
+    income = networth.incomeM
+    balance = networth.balance
+    assets = networth.assets
+
+    expenses, month, year = datefilter(request)
+
+    if year is not None and month is not None:
+        days = calendar.monthrange(int(year),int(month))[1]
+
+
+    # Array of Expenses
+    expenses_array = []
+
+    sumExpens=0
+    sumExpenses=round(sumExpens,2)
+
+    for i in range(days):
+        
+        seqs = expenses.filter(date__day = i).aggregate(Sum('amount')).get('amount__sum')
+
+        if seqs == None:
+            seqs = 0
+
+        expenses_array.append(float(seqs))
+        sumExpenses+=int(seqs)
+    
+    totalexpenses = sumExpenses 
+
+    context={
+        'income':income,
+        'totalexpenses':totalexpenses,
+        'assets':assets,
+        'balance':balance,
+
+    }
+    return render(request, 'balance.html', context)
+
+def assets(request):
+    networth = Networth.objects.first()
+    income = networth.incomeM
+    balance = networth.balance
+    assets = networth.assets
+
+    expenses, month, year = datefilter(request)
+
+    if year is not None and month is not None:
+        days = calendar.monthrange(int(year),int(month))[1]
+
+
+    # Array of Expenses
+    expenses_array = []
+
+    sumExpens=0
+    sumExpenses=round(sumExpens,2)
+
+    for i in range(days):
+        
+        seqs = expenses.filter(date__day = i).aggregate(Sum('amount')).get('amount__sum')
+
+        if seqs == None:
+            seqs = 0
+
+        expenses_array.append(float(seqs))
+        sumExpenses+=int(seqs)
+    
+    totalexpenses = sumExpenses 
+
+    context={
+        'income':income,
+        'totalexpenses':totalexpenses,
+        'assets':assets,
+        'balance':balance,
+
+    }
+    return render(request, 'assets.html', context)
 
 
 def datefilter(request):

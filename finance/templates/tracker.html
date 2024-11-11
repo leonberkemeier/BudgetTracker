@@ -1,27 +1,67 @@
+{% extends 'index.html' %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tracker</title>
-    <link rel="stylesheet" href="{% static 'css/tracker.css' %}">
-</head>
-<body>
-    <h1>tracker</h1>
-    <h1>kpi</h1>
-    <h2>income : {{income}}</h2>
-    <h2>totalexpenses : {{totalexpenses}}</h2>
-    <h2>assets : {{assets}}</h2>
-    <h2>balance : {{balance}}</h2>
 
-    <h1>date</h1>
+{% block content%}
+<link rel="stylesheet" href="{% static 'css/tracking.css' %}">
+<div class="body-main">
+    <div class="container-bm-first">
+        <!-- <h1>Expenses per Day</h1> -->
+            <div class="filter_for">
+            
+            <h2>  year: {{year}}</h2>
+            <h2>month: {{month}}</h2>
+            
+            </div>
+        <div class="expenses_per_day">
+            <div class="expenses_per_day_chart" id='expenses_per_day_chart'></div>
+        </div>
+        
+    </div>
+    <div class="container-bm-second">
+        <!-- <h1>Relative Money</h1> -->
+        <div class="second-container">
     
-    <h2>month : {{month}}</h2>
-    <h2>year : {{year}}</h2>
-    
+            <div class="networth_per_day">
+                <div class="networth_per_day_chart" id='networth_per_day_chart'></div>
+            </div>
+            
 
+            <div class="average_networth_per_day">
+                <div class="average_networth_per_day_chart" id='average_networth_per_day_chart'></div>
+            </div>
+        
+            
+        
+        </div>
+        
+        
+    </div>
+    <div class="container-bm-third">
+        <!-- <h1>third</h1> -->
+        <div class="third-container">
+            <div class="PurposeList_container">
+                <div class="PurposeList" id="PurposeList"></div>
+            </div>   
 
-    <script defer src="{% static 'js/tracker.js' %}"></script>
-</body>
-</html>
+            <div class="donut_container">
+                <div class="donut" id="theDonut"></div>
+            </div>
+                            
+        </div>
+    </div>
+</div>  
+<script>
+    // const yArray =[{% for ex in expenses %} '{{ ex.date }}', {% endfor %}];
+    // const xArray =[{% for ex in expenses %} {{ex.amount}}, {% endfor %}];
+    const TageArray = [{% for i in days_array %} {{i}}, {% endfor %}];
+    const xArray = [{% for j in expenses_array %} {{j}}, {% endfor %}];
+    const y1Array = [{% for j in  average_networth_array %} {{j}}, {% endfor %}];
+    const y2Array = [{% for j in  expenses_and_income_pd %} {{j}}, {% endfor %}];
+    const yDonut = [{% for j in  pl %} '{{j}}', {% endfor %}];
+    const xDonut = [{% for j in  el %} {{j}}, {% endfor %}];
+
+</script>
+
+<script defer src="{% static 'js/tracking.js' %}"></script>
+{% endblock %}
